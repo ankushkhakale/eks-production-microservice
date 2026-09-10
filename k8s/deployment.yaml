@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: eks-microservice
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: eks-microservice
+
+  template:
+    metadata:
+      labels:
+        app: eks-microservice
+
+    spec:
+      containers:
+        - name: microservice
+
+          image: 782659268628.dkr.ecr.us-east-1.amazonaws.com/eks-microservice:v1
+
+          ports:
+            - containerPort: 8000
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 20

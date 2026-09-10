@@ -1,0 +1,13 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: production-lab
+  region: us-east-1
+
+managedNodeGroups:
+  - name: worker-nodes
+    instanceType: t3.small
+    minSize: 2
+    desiredCapacity: 2
+    maxSize: 3

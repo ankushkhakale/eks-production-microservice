@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🚀 EKS Production Microservice
 
@@ -57,31 +57,26 @@ This project demonstrates a **complete cloud-native deployment pipeline** for a 
 
 ```mermaid
 graph TD
-    DEV["💻 Developer\nLocal Machine"] -->|docker build & push| ECR["📦 Amazon ECR\neks-microservice:v1"]
-    ECR -->|image pull| EKS
+    DEV["💻 Developer\nLocal Machine"]
+    USER["🌐 Internet"]
+    ECR["📦 Amazon ECR\neks-microservice:v1"]
 
-    subgraph EKS["☸️ Amazon EKS — production-lab (us-east-1)"]
-        direction TB
-        SVC["🔀 LoadBalancer Service\n:80 → :8000"]
-        DEP["🚀 Deployment\neks-microservice\n2 replicas"]
-        HPA["📈 HPA\n2 → 5 replicas\n50% CPU"]
-        P1["🟢 Pod 1\nFastAPI + Uvicorn"]
-        P2["🟢 Pod 2\nFastAPI + Uvicorn"]
+    DEV -->|"docker build & push"| ECR
+    USER -->|"HTTP :80"| SVC
+    ECR -->|"image pull"| DEP
+
+    subgraph EKS["☸️ Amazon EKS - production-lab us-east-1"]
+        SVC["🔀 LoadBalancer Service\n:80 to :8000"]
+        DEP["🚀 Deployment\neks-microservice · 2 replicas"]
+        HPA["📈 HPA\n2 to 5 replicas · 50% CPU"]
+        P1["🟢 Pod 1 · FastAPI + Uvicorn"]
+        P2["🟢 Pod 2 · FastAPI + Uvicorn"]
+
         SVC --> DEP
-        HPA --> DEP
+        HPA -.->|"scales"| DEP
         DEP --> P1
         DEP --> P2
     end
-
-    subgraph NODES["🖥️ Worker Nodes (t3.small × 2-3)"]
-        N1["ip-192-168-17-67.ec2.internal"]
-        N2["ip-192-168-38-112.ec2.internal"]
-    end
-
-    P1 --- N1
-    P2 --- N2
-
-    USER["🌐 Internet"] -->|HTTP :80| SVC
 ```
 
 ---
@@ -433,7 +428,6 @@ This project is open source and available under the [MIT License](LICENSE).
     <a href="https://github.com/ankushkhakale/eks-production-microservice/issues">🐛 Report a Bug</a>
   </p>
 </div>
-]]>
 ---
 
 > **Note:** This project was built and documented as part of a hands-on AWS EKS learning exercise. All screenshots are from a real deployed cluster on `us-east-1`.

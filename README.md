@@ -428,3 +428,6 @@ This project is open source and available under the [MIT License](LICENSE).
     <a href="https://github.com/ankushkhakale/eks-production-microservice/issues">🐛 Report a Bug</a>
   </p>
 </div>
+---
+
+> **Note:** This project was built and documented as part of a hands-on AWS EKS learning exercise. All screenshots are from a real deployed cluster on `us-east-1`.

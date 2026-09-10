@@ -69,8 +69,8 @@ graph TD
         SVC["🔀 LoadBalancer Service\n:80 to :8000"]
         DEP["🚀 Deployment\neks-microservice · 2 replicas"]
         HPA["📈 HPA\n2 to 5 replicas · 50% CPU"]
-        P1["🟢 Pod 1 · FastAPI + Uvicorn\nip-192-168-17-67.ec2.internal"]
-        P2["🟢 Pod 2 · FastAPI + Uvicorn\nip-192-168-38-112.ec2.internal"]
+        P1["🟢 Pod 1 · FastAPI + Uvicorn"]
+        P2["🟢 Pod 2 · FastAPI + Uvicorn"]
 
         SVC --> DEP
         HPA -.->|"scales"| DEP

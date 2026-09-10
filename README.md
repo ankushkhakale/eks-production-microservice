@@ -434,3 +434,6 @@ This project is open source and available under the [MIT License](LICENSE).
   </p>
 </div>
 ]]>
+---
+
+> **Note:** This project was built and documented as part of a hands-on AWS EKS learning exercise. All screenshots are from a real deployed cluster on `us-east-1`.
